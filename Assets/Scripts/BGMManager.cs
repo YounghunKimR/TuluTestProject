@@ -26,10 +26,10 @@ public class BGMManager : MonoBehaviour
         float centerHeight = (float)Screen.height / 2f;
         transform.position = new Vector2(centerWidth, centerHeight);
 
-        SceneManager.sceneLoaded += changeBgm;
+        SceneManager.sceneLoaded += ChangeBgm;
     }
 
-    void changeBgm(Scene scene, LoadSceneMode mode) 
+    void ChangeBgm(Scene scene, LoadSceneMode mode) 
     {
         string sceneName = scene.name;
         if (sceneName == "Intro")

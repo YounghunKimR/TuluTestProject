@@ -68,7 +68,7 @@ public class SceneChanger : MonoBehaviour
 
     IEnumerator fadeOutScene(string sceneName)
     {
-        GameObject blinder = Instantiate(GameManager.loadPrefab("FadeOutSceneBlinder"), canvas.transform) as GameObject;
+        GameObject blinder = Instantiate(GameManager.LoadPrefab("SceneChanger/FadeOutSceneBlinder"), canvas.transform);
         Animator animator = blinder.GetComponent<Animator>();
         animator.SetTrigger("FadeOut");
 
@@ -90,7 +90,7 @@ public class SceneChanger : MonoBehaviour
 
     IEnumerator fadeInScene()
     {
-        GameObject blinder = Instantiate(GameManager.loadPrefab("FadeInSceneBlinder"), canvas.transform) as GameObject;
+        GameObject blinder = Instantiate(GameManager.LoadPrefab("SceneChanger/FadeInSceneBlinder"), canvas.transform);
         Animator animator = blinder.GetComponent<Animator>();
         animator.SetTrigger("FadeIn");
 
@@ -112,7 +112,7 @@ public class SceneChanger : MonoBehaviour
 
     IEnumerator fadeOutBloodFilled(string sceneName)
     {
-        GameObject blinder = Instantiate(GameManager.loadPrefab("BloodFilledFilter"), canvas.transform) as GameObject;
+        GameObject blinder = Instantiate(GameManager.LoadPrefab("SceneChanger/BloodFilledFilter"), canvas.transform);
         Animator animator = blinder.GetComponent<Animator>();
         animator.SetTrigger("FadeOut");
 
@@ -134,7 +134,7 @@ public class SceneChanger : MonoBehaviour
 
     IEnumerator fadeInBloodFilled()
     {
-        GameObject blinder = Instantiate(GameManager.loadPrefab("BloodFilledFilter"), canvas.transform) as GameObject;
+        GameObject blinder = Instantiate(GameManager.LoadPrefab("SceneChanger/BloodFilledFilter"), canvas.transform);
         Animator animator = blinder.GetComponent<Animator>();
         animator.SetTrigger("FadeIn");
 

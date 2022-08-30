@@ -2,10 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO;
+using System.Text;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private bool submitDowned = false;
+    public bool SubmitDowned
+    {
+        get 
+        {
+            if (submitDowned)
+            {
+                submitDowned = false;
+                return true;
+            }
+            return false;
+        } 
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -18,15 +35,23 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Update()
     {
-        
+        InputLogic();
     }
 
-    public static UnityEngine.Object loadPrefab(string filename)
+    private void InputLogic()
     {
-        UnityEngine.Object loadedObject = Resources.Load("Prefab/" + filename);
+        if (Input.GetButtonDown("Submit"))
+        {
+            submitDowned = true;
+        }
+    }
+
+    public static GameObject LoadPrefab(string filename)
+    {
+        GameObject loadedObject = Resources.Load<GameObject>("Prefab/" + filename);
         if (loadedObject == null)
         {
             throw new Exception(filename + " not found");
@@ -34,9 +59,31 @@ public class GameManager : MonoBehaviour
         return loadedObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Sprite LoadImage(string filename)
     {
-        
+        Sprite sprite = Resources.Load<Sprite>("Images/" + filename);
+        if (sprite == null)
+        {
+            throw new Exception(filename + " not found");
+        }
+        return sprite;
+    }
+
+    public void CreateJsonFile(string createPath, string fileName, string jsonData)
+    {
+        FileStream fileStream = new(string.Format("{0}/{1}.json", createPath, fileName), FileMode.Create);
+        byte[] data = Encoding.UTF8.GetBytes(jsonData);
+        fileStream.Write(data, 0, data.Length);
+        fileStream.Close();
+    }
+
+    public T LoadJsonFile<T>(string loadPath, string fileName)
+    {
+        FileStream fileStream = new(string.Format("{0}/{1}.json", loadPath, fileName), FileMode.Open);
+        byte[] data = new byte[fileStream.Length];
+        fileStream.Read(data, 0, data.Length);
+        fileStream.Close();
+        string jsonData = Encoding.UTF8.GetString(data);
+        return JsonUtility.FromJson<T>(jsonData);
     }
 }

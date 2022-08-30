@@ -38,7 +38,7 @@ namespace Intro
         
         void Start()
         {
-            StartCoroutine(startIntro());
+            StartCoroutine(StartIntro());
         }
 
         // Update is called once per frame
@@ -57,7 +57,7 @@ namespace Intro
         }
 
 
-        IEnumerator startIntro()
+        IEnumerator StartIntro()
         {
             //ui가 모두 로딩되었다면 시작
             if (bgrndImageObj.activeInHierarchy && titleTextObj.activeInHierarchy && pakTextObj.activeInHierarchy)
@@ -74,23 +74,23 @@ namespace Intro
 
                 //타이틀텍스트를 페이드인시킴
 
-                yield return StartCoroutine(fadeInAndOutUI(teamNameText));
-                StartCoroutine(fadeInUI(titleText));
-                StartCoroutine(fadeInUI(backgroundImage));
+                yield return StartCoroutine(FadeinAndOutUI(teamNameText));
+                StartCoroutine(FadeInUI(titleText));
+                StartCoroutine(FadeInUI(backgroundImage));
                 //duration 초 뒤에 pressanykey도 페이드인시킴
-                yield return StartCoroutine(fadeInUI(pressAnyKeyText));
+                yield return StartCoroutine(FadeInUI(pressAnyKeyText));
 
                 //이때부터 아무키를 누르면 다음 씬으로 진행
                 readyToGo = true;
 
                 //pressanykey를 깜빡거리게함
-                StartCoroutine(lastingFadeInAndOutUI(pressAnyKeyText));
+                StartCoroutine(LastingFadeinAndOutUI(pressAnyKeyText));
             }
-            StopCoroutine(startIntro());
+            StopCoroutine(StartIntro());
             yield return null;
         }
 
-        IEnumerator fadeInAndOutUI<T>(T element)
+        IEnumerator FadeinAndOutUI<T>(T element)
         where T : Graphic
         {
 
@@ -116,7 +116,7 @@ namespace Intro
 
         }
 
-        IEnumerator fadeInUI<T>(T element)
+        IEnumerator FadeInUI<T>(T element)
             where T : Graphic
         {
 
@@ -130,7 +130,7 @@ namespace Intro
 
         }
 
-        IEnumerator lastingFadeInAndOutUI<T>(T element)
+        IEnumerator LastingFadeinAndOutUI<T>(T element)
             where T : Graphic
         {
 
